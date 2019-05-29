@@ -1,0 +1,19 @@
+{
+  "name": "unicode-query-params",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djragsdale/unicode-query-params.git"
+  },
+  "author": "David Ragsdale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djragsdale/unicode-query-params/issues"
+  },
+  "homepage": "https://github.com/djragsdale/unicode-query-params#readme"
+}
