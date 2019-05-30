@@ -29,22 +29,28 @@ const isTrue = (val) => {
 }
 
 const getOptions = (req) => {
-  const currency = getCurrency(req.query.currency)
+  const currencySymbol = req.query.currency
+  const currency = getCurrency(currencySymbol)
 
   return {
     currency,
+    currencySymbol,
   }
 }
 
 module.exports = router
   .get('/', (req, res) => {
-    console.log('route')
     const options = getOptions(req)
+    debug('route options', options)
+
+    const data = {
+      ...options,
+    }
 
     if (isTrue(req.query.json)) {
-      res.json(options)
+      res.json(data)
     } else {
       // res.send('Cart Home')
-      res.render('cart', options)
+      res.render('cart', data)
     }
   })
