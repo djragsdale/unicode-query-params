@@ -3,7 +3,7 @@ const express = require('express')
 
 const routes = require('./routes')
 
-module.exports = (config) => {
+module.exports = config => {
   const app = express()
 
   app.set('view engine', 'ejs')

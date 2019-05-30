@@ -3,7 +3,7 @@ const { Router } = require('express')
 
 const router = Router()
 
-const getCurrency = (currencySymbol) => {
+const getCurrency = currencySymbol => {
   if (currencySymbol === '£') return 'GBP'
   if (currencySymbol === '¥') return 'YEN'
   if (currencySymbol === '€') return 'EUR'
@@ -11,15 +11,8 @@ const getCurrency = (currencySymbol) => {
   return 'USD'
 }
 
-const isTrue = (val) => {
-  const falseValues = [
-    '✗',
-    'null',
-    'undefined',
-    'false',
-    'F',
-    'N',
-  ]
+const isTrue = val => {
+  const falseValues = ['✗', 'null', 'undefined', 'false', 'F', 'N']
 
   if (falseValues.includes(val)) {
     return false
@@ -28,7 +21,7 @@ const isTrue = (val) => {
   return !!val
 }
 
-const getOptions = (req) => {
+const getOptions = req => {
   const currencySymbol = req.query.currency
   const currency = getCurrency(currencySymbol)
 
@@ -38,19 +31,18 @@ const getOptions = (req) => {
   }
 }
 
-module.exports = router
-  .get('/', (req, res) => {
-    const options = getOptions(req)
-    debug('route options', options)
+module.exports = router.get('/', (req, res) => {
+  const options = getOptions(req)
+  debug('route options', options)
 
-    const data = {
-      ...options,
-    }
+  const data = {
+    ...options,
+  }
 
-    if (isTrue(req.query.json)) {
-      res.json(data)
-    } else {
-      // res.send('Cart Home')
-      res.render('cart', data)
-    }
-  })
+  if (isTrue(req.query.json)) {
+    res.json(data)
+  } else {
+    // res.send('Cart Home')
+    res.render('cart', data)
+  }
+})
