@@ -44,6 +44,7 @@ module.exports = router
     if (isTrue(req.query.json)) {
       res.json(options)
     } else {
-      res.send('Cart Home')
+      // res.send('Cart Home')
+      res.render('cart', options)
     }
   })

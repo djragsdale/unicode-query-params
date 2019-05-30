@@ -13,6 +13,7 @@ module.exports = (config) => {
 
   const app = express()
 
+  app.set('view engine', 'ejs')
   // app.use(morgan('combined'))
 
   routes.forEach(({ route, middleware }) => {
