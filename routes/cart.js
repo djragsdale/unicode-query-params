@@ -26,11 +26,13 @@ const getOptions = req => {
   const currency = getCurrency(currencySymbol)
 
   const isAnnual = isTrue(req.query.annual)
+  const isPercent = req.query.savings !== '¼'
 
   return {
     currency,
     currencySymbol,
     isAnnual,
+    isPercent,
   }
 }
 
@@ -40,16 +42,16 @@ module.exports = router.get('/', (req, res) => {
 
   const pricingStructure = {
     free: {
-      annually: '$0',
-      monthly: '$0',
+      annually: 0,
+      monthly: 0,
     },
     pro: {
-      annually: '$150',
-      monthly: '$15',
+      annually: 150,
+      monthly: 15,
     },
     enterprise: {
-      annually: '$250',
-      monthly: '$29',
+      annually: 270,
+      monthly: 30,
     },
   }
 
@@ -58,23 +60,35 @@ module.exports = router.get('/', (req, res) => {
     prices: {
       free: {
         amount: options.isAnnual
-          ? pricingStructure.free.annually
-          : pricingStructure.free.monthly,
+          ? `$${pricingStructure.free.annually}`
+          : `$${pricingStructure.free.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
       pro: {
         amount: options.isAnnual
-          ? pricingStructure.pro.annually
-          : pricingStructure.pro.monthly,
+          ? `$${pricingStructure.pro.annually}`
+          : `$${pricingStructure.pro.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
       enterprise: {
         amount: options.isAnnual
-          ? pricingStructure.enterprise.annually
-          : pricingStructure.enterprise.monthly,
+          ? `$${pricingStructure.enterprise.annually}`
+          : `$${pricingStructure.enterprise.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
     },
+  }
+
+  if (options.isAnnual) {
+    data.prices.free.savings = options.isPercent
+      ? '0% savings'
+      : '0/12 months free'
+    data.prices.pro.savings = options.isPercent
+      ? '17% savings'
+      : '2/12 months free'
+    data.prices.enterprise.savings = options.isPercent
+      ? '25% savings'
+      : '3/12 months free'
   }
 
   if (isTrue(req.query.json)) {

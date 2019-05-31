@@ -86,6 +86,9 @@
             <li>2 GB of storage</li>
             <li>Email support</li>
             <li>Help center access</li>
+            <% if (prices.free.savings) { %>
+              <li><%= prices.free.savings %></li>
+            <% } %>
           </ul>
           <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
         </div>
@@ -101,6 +104,9 @@
             <li>10 GB of storage</li>
             <li>Priority email support</li>
             <li>Help center access</li>
+            <% if (prices.pro.savings) { %>
+              <li><%= prices.pro.savings %></li>
+            <% } %>
           </ul>
           <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
         </div>
@@ -116,6 +122,9 @@
             <li>15 GB of storage</li>
             <li>Phone and email support</li>
             <li>Help center access</li>
+            <% if (prices.enterprise.savings) { %>
+              <li><%= prices.enterprise.savings %></li>
+            <% } %>
           </ul>
           <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
         </div>
