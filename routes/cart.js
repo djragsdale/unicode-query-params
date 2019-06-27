@@ -3,12 +3,19 @@ const { Router } = require('express')
 
 const router = Router()
 
-const getCurrency = currencySymbol => {
-  if (currencySymbol === '£') return 'GBP'
-  if (currencySymbol === '¥') return 'YEN'
-  if (currencySymbol === '€') return 'EUR'
+const currencies = {
+  $: 'USD',
+  '£': 'GBP',
+  '¥': 'YEN',
+  '€': 'EUR',
+}
 
-  return 'USD'
+const getCurrency = currencySymbol => {
+  if (currencySymbol in currencies) {
+    return currencies[currencySymbol]
+  }
+
+  return currencies['$']
 }
 
 const isTrue = val => {
@@ -60,20 +67,20 @@ module.exports = router.get('/', (req, res) => {
     prices: {
       free: {
         amount: options.isAnnual
-          ? `$${pricingStructure.free.annually}`
-          : `$${pricingStructure.free.monthly}`,
+          ? `${options.currencySymbol}${pricingStructure.free.annually}`
+          : `${options.currencySymbol}${pricingStructure.free.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
       pro: {
         amount: options.isAnnual
-          ? `$${pricingStructure.pro.annually}`
-          : `$${pricingStructure.pro.monthly}`,
+          ? `${options.currencySymbol}${pricingStructure.pro.annually}`
+          : `${options.currencySymbol}${pricingStructure.pro.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
       enterprise: {
         amount: options.isAnnual
-          ? `$${pricingStructure.enterprise.annually}`
-          : `$${pricingStructure.enterprise.monthly}`,
+          ? `${options.currencySymbol}${pricingStructure.enterprise.annually}`
+          : `${options.currencySymbol}${pricingStructure.enterprise.monthly}`,
         term: options.isAnnual ? 'yr' : 'mo',
       },
     },

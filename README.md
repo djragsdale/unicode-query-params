@@ -10,7 +10,7 @@ npm install
 npm run dev
 ```
 
-Then go to [/cart](/cart) to see the example!
+Then go to [/cart](/cart) to see the example. Go to [/cart?annual=✓&savings=¼&currency=€](/cart?annual=✓&savings=¼&currency=€) to see everything in action!
 
 ## Code style
 
