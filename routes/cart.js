@@ -15,7 +15,7 @@ const getCurrency = currencySymbol => {
     return currencies[currencySymbol]
   }
 
-  return currencies['$']
+  throw new Error(`Could not find currency for symbol "${currencySymbol}"`)
 }
 
 const isTrue = val => {
@@ -29,7 +29,7 @@ const isTrue = val => {
 }
 
 const getOptions = req => {
-  const currencySymbol = req.query.currency
+  const currencySymbol = req.query.currency || '$'
   const currency = getCurrency(currencySymbol)
 
   const isAnnual = isTrue(req.query.annual)
